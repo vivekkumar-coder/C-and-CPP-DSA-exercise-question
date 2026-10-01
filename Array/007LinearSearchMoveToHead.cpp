@@ -1,75 +1,117 @@
-//Move to head 0r move to Front
-#include<iostream>
+#include <iostream>
 using namespace std;
 
-struct Array 
+struct Array
 {
     int *A;
     int size;
     int length;
 };
 
-// void swap(int *x, int *y)
-// {
-//     int temp = *x;
-//     *x = *y;
-//     *y = temp;
-// }
-
-int LinearSearchMoveToFront(struct Array *arr, int key)
+// Move to front using swapping
+int LinearSearchMoveToFront1(struct Array *arr, int key)
 {
-    int i=0;
-    for(;i<arr->length;i++){
-        if(key==arr->A[i]){
-            if(i!=0){
+    for (int i = 0; i < arr->length; i++)
+    {
+        if (key == arr->A[i])
+        {
+            if (i != 0)
+            {
                 int temp = arr->A[i];
-                arr->A[i]=arr->A[0];
-                arr->A[0]=temp;  
+                arr->A[i] = arr->A[0];
+                arr->A[0] = temp;
             }
-            // swap(&arr->A[i],&arr->A[0]);
-            return 0;
+
+            return i;
         }
     }
+
+    return -1;
+}
+
+// Move to front using shifting
+int LinearSearchMoveToFront(struct Array *arr, int key)
+{
+    for (int i = 0; i < arr->length; i++)
+    {
+        if (arr->A[i] == key)
+        {
+            if (i != 0)
+            {
+                int temp = arr->A[i];
+
+                for (int j = i; j > 0; j--)
+                {
+                    arr->A[j] = arr->A[j - 1];
+                }
+
+                arr->A[0] = temp;
+            }
+
+            return i;
+        }
+    }
+
     return -1;
 }
 
 void Display(struct Array *arr)
 {
-    int i=0;
-    for(;i<arr->length;i++)
-        cout<<arr->A[i]<<"  ";
+    for (int i = 0; i < arr->length; i++)
+    {
+        cout << arr->A[i] << "  ";
+    }
+
+    cout << endl;
 }
 
 int main()
 {
     struct Array arr;
-    cout<<"Enter the size of array : ";
-    cin>>arr.size;
 
-    arr.A=new int(arr.size);
-    cout<<"How many element you want to enter in array: ";
-    cin>>arr.length;
-    cout<<"Enter the element of array : \n";
-    int i=0, key;
-    for(;i<arr.length;i++){
-        cin>>arr.A[i];
+    cout << "Enter the size of array: ";
+    cin >> arr.size;
+
+    // CORRECT: allocate an array
+    arr.A = new int[arr.size];
+
+    cout << "How many elements you want to enter in array: ";
+    cin >> arr.length;
+
+    // Validate length
+    if (arr.length > arr.size)
+    {
+        cout << "Length cannot be greater than size." << endl;
+        delete[] arr.A;
+        return 0;
     }
 
-    cout<<"Enter the key which you want to search :  ";
-    cin>>key;
+    cout << "Enter the elements of array:\n";
+
+    for (int i = 0; i < arr.length; i++)
+    {
+        cin >> arr.A[i];
+    }
+
+    int key;
+
+    cout << "Enter the key which you want to search: ";
+    cin >> key;
 
     int result = LinearSearchMoveToFront(&arr, key);
-    if(result!=-1)
-        // cout<<"Key "<< key<<" is found at "<< result<<endl;
-        cout<<"Found at index "<<result;
-    else 
-        cout<<"not found";
-    
-    cout<<endl;
-    
-    Display(&arr);
+
+    if (result != -1)
+    {
+        cout << "Found at index: " << result << endl;
+        cout << "Array after Move-to-Front: ";
+        Display(&arr);
+    }
+    else
+    {
+        cout << "Not found" << endl;
+    }
+
+    delete[] arr.A;
+
     return 0;
-
-
 }
-
