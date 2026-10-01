@@ -14,7 +14,7 @@ void Display(struct Array *arr)
         cout << arr->A[i] << "  ";
 }
 
-struct Array *Union(struct Array *arr1, struct Array *arr2)
+struct Array *Difference(struct Array *arr1, struct Array *arr2)
 {
     int i, j, k;
     i = j = k = 0;
@@ -25,39 +25,22 @@ struct Array *Union(struct Array *arr1, struct Array *arr2)
     {
         if (arr1->A[i] < arr2->A[j])
         {
-            arr3->A[k] = arr1->A[i];
-            i++;
-            k++;
+            arr3->A[k++] = arr1->A[i++];
         }
         else if (arr2->A[j] < arr1->A[i])
         {
-            arr3->A[k] = arr2->A[j];
             j++;
-            k++;
         }
         else
         {
-            // Both elements are equal
-            arr3->A[k] = arr1->A[i];
-
             i++;
             j++;
-            k++;
         }
     }
 
-    // Remaining elements of arr1
-    for (; i < arr1->length; i++)
+    while (i < arr1->length)
     {
-        arr3->A[k] = arr1->A[i];
-        k++;
-    }
-
-    // Remaining elements of arr2
-    for (; j < arr2->length; j++)
-    {
-        arr3->A[k] = arr2->A[j];
-        k++;
+        arr3->A[k++] = arr1->A[i++];
     }
 
     arr3->length = k;
@@ -73,19 +56,15 @@ int main()
 
     struct Array *arr3;
 
-    arr3 = Union(&arr1, &arr2);
+    arr3 = Difference(&arr1, &arr2);
 
     cout << "Array 1: ";
     Display(&arr1);
 
-    cout << endl;
-
-    cout << "Array 2: ";
+    cout << "\nArray 2: ";
     Display(&arr2);
 
-    cout << endl;
-
-    cout << "Union: ";
+    cout << "\nDifference (A - B): ";
     Display(arr3);
 
     delete arr3;
