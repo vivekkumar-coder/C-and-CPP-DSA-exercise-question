@@ -9,7 +9,7 @@ double e(int x,int n)
         return 1;
     else
     {
-        r=e(x,n-1);
+        // r=e(x,n-1);
         p=p*x;
         f=f*n;
         // return r+p/f;

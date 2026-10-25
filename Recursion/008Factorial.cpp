@@ -2,7 +2,7 @@
 using namespace std;
 
 int fact1(int n){
-      if(n==0)
+    if(n==0)
         return 1;
     int i, p=1;
     for(int i=1;i<=n;i++){

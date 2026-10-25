@@ -10,6 +10,7 @@ int main()
         if (A[i] == ' ' && A[i - 1] != ' ')
             word++;
     }
+    
     cout << "number of word are " << word << endl;
 
     return 0;

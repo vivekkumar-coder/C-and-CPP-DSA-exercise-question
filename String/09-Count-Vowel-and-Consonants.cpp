@@ -3,7 +3,6 @@ using namespace std;
 
 int main()
 {
-
     char A[] = "How are you ?";
     int i, vcount = 0, ccount = 0;
     for (i = 0; A[i] != '\0'; i++)
